@@ -1,0 +1,369 @@
+:root {
+  --ink: #142033;
+  --ink-soft: #3d4a5c;
+  --mist: #e7eef4;
+  --fog: #f5f8fb;
+  --line: color-mix(in srgb, var(--ink) 12%, transparent);
+  --panel: color-mix(in srgb, white 78%, transparent);
+  --accent: #0f7a6b;
+  --accent-deep: #0a5c50;
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, white);
+  --danger: #b42318;
+  --ok: #0f7a6b;
+  --shadow: 0 18px 50px color-mix(in srgb, #1a2a3a 12%, transparent);
+  --radius: 1rem;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  background: var(--fog);
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem 3rem;
+  overflow-x: hidden;
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 55% at 15% 10%, #b8d4e8 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 85%, #9fd4c8 0%, transparent 50%),
+    linear-gradient(165deg, #d9e6f0 0%, #eef3f7 42%, #e4ebe8 100%);
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+main {
+  width: min(100%, 26rem);
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.brand {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.brand h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.brand p {
+  margin: 0.55rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid color-mix(in srgb, white 70%, var(--line));
+  border-radius: calc(var(--radius) + 0.25rem);
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#guest-view,
+#session-view,
+#create-panel,
+#signin-panel {
+  display: grid;
+  gap: 0.85rem;
+}
+
+#guest-view[hidden],
+#session-view[hidden],
+#create-panel[hidden],
+#signin-panel[hidden] {
+  display: none;
+}
+
+.mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, var(--mist) 80%, white);
+  border: 1px solid var(--line);
+}
+
+.mode-btn {
+  margin: 0;
+  padding: 0.7rem 0.75rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: transparent;
+  color: var(--ink-soft);
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.mode-btn:hover:not(:disabled):not([aria-selected='true']) {
+  color: var(--ink);
+  background: color-mix(in srgb, white 55%, transparent);
+}
+
+.mode-btn[aria-selected='true'] {
+  color: var(--ink);
+  background: white;
+  box-shadow: 0 1px 2px color-mix(in srgb, #1a2a3a 10%, transparent);
+}
+
+.mode-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+form,
+label {
+  display: grid;
+  gap: 0.5rem;
+}
+
+label span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+input,
+button {
+  width: 100%;
+  font: inherit;
+  border-radius: 0.7rem;
+  border: 1px solid var(--line);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+input {
+  padding: 0.85rem 1rem;
+  color: var(--ink);
+  background: color-mix(in srgb, white 88%, var(--mist));
+}
+
+input::placeholder {
+  color: color-mix(in srgb, var(--ink-soft) 55%, transparent);
+}
+
+input:hover {
+  border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+button {
+  padding: 0.9rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+button.primary {
+  color: white;
+  background: var(--accent);
+  border-color: var(--accent-deep);
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--accent-deep);
+}
+
+button.secondary {
+  color: var(--ink);
+  background: color-mix(in srgb, white 55%, transparent);
+}
+
+button.secondary:hover:not(:disabled) {
+  background: white;
+  border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.session-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, var(--accent) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  animation: status-in 0.35s ease both;
+}
+
+.session-avatar {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: white;
+  background: var(--accent);
+}
+
+.session-copy {
+  min-width: 0;
+}
+
+.session-label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.session-name {
+  margin: 0.15rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.status {
+  display: block;
+  margin-top: 0.1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.7rem;
+  font-size: 0.92rem;
+  white-space: pre-wrap;
+  background: color-mix(in srgb, var(--mist) 70%, white);
+  border: 1px solid transparent;
+  animation: status-in 0.35s ease both;
+}
+
+.status[data-tone='idle'] {
+  color: var(--ink-soft);
+}
+
+.status[data-tone='pending'] {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  background: var(--accent-soft);
+}
+
+.status[data-tone='ok'] {
+  color: var(--ok);
+  border-color: color-mix(in srgb, var(--ok) 30%, transparent);
+  background: color-mix(in srgb, var(--ok) 10%, white);
+}
+
+.status[data-tone='error'] {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 28%, transparent);
+  background: color-mix(in srgb, var(--danger) 8%, white);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes status-in {
+  from {
+    opacity: 0.35;
+    transform: translateY(0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.04) translate(-1.5%, 1%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere,
+  main,
+  .panel,
+  .status,
+  .session-card {
+    animation: none;
+  }
+
+  button:active:not(:disabled) {
+    transform: none;
+  }
+}
