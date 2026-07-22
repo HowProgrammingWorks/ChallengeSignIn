@@ -1,0 +1,18 @@
+{
+  "name": "challenge-signin",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint . && prettier -c \"**/*.{js,json,html,css}\"",
+    "fix": "eslint . --fix && prettier --write \"**/*.{js,json,html,css}\""
+  },
+  "devDependencies": {
+    "eslint": "^10.5.0",
+    "eslint-config-metarhia": "^9.1.9",
+    "prettier": "^3.8.1"
+  }
+}
